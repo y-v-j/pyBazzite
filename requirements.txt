@@ -1,0 +1,19 @@
+# Optional dependencies. Every tool degrades gracefully without them and
+# tells you which one it needs, so install only what you actually use.
+
+psutil>=5.9            # bzt_conn.py, bzt_conn_daemon.py
+requests>=2.28         # bzt_urlaudit.py
+beautifulsoup4>=4.11   # bzt_urlaudit.py
+scapy>=2.5             # bzt_wifiguard.py
+speedtest-cli>=2.1     # bzt_sysinfo.py --speedtest (optional fallback)
+pillow>=9.0            # bzt_scrub.py — TIFF/BMP/HEIC (JPEG, PNG, WebP,
+                       #   GIF and ZIP formats need nothing at all)
+pypdf>=3.9             # bzt_scrub.py — PDF documents
+mutagen>=1.45          # bzt_scrub.py — audio tags, and MP4 video when
+                       #   ffmpeg is unavailable
+
+# Not a Python package: bzt_scrub.py uses ffmpeg for video, and skips
+# video files with a note when it is missing. Install it with
+#   rpm-ostree install ffmpeg      (layered onto the base image)
+# or use the Flatpak ffmpeg runtime already present on most Bazzite
+# installs. Video is remuxed with -c copy, so nothing is re-encoded.
